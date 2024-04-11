@@ -1,0 +1,22 @@
+/*To Look the project same across all the browsers we are making below changes*/
+*{
+
+    margin: 0;
+    padding : 0;
+    box-sizing: border-box; /* this will make sure that the padding and margin are included in the width and height of the element. */
+}
+#myCanvas{
+    border: 5px soild black;
+    position: absolute;
+    top:50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    background: greenyellow;
+    max-width: 100%;
+    max-height: 100%;
+    font-family: "Eater", serif;
+}
+#layer1, #layer2, #player1, #opponent1, #opponent2, #opponent3, #opponent4, #seed,#playButton, #restartButton{
+    display: none;
+}
+

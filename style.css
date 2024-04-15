@@ -25,5 +25,9 @@
 @media only screen and (max-width: 600px) {
     #mobileMsg {
         display: block;
+        margin: 0 auto;
+        text-align: center;
+        padding: 10px;
+        font-size: 10px;
     }
 }

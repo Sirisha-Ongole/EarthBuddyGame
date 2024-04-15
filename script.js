@@ -64,19 +64,7 @@ class InputHandler{
         this.game = game;
         window.addEventListener('touchstart', (event) => {
             if (event.targetTouches.length === 1) {
-                const touch = event.targetTouches[0];
-                const canvasRect = canvas.getBoundingClientRect();
-                const touchX = touch.clientX - canvasRect.left;
-                const touchY = touch.clientY - canvasRect.top;
-                if (touchX >= this.game.width / 2) {
-                    this.game.player.shootTop();
-                } else {
-                    if (touchY < this.game.player.y) {
-                        this.game.keys.push('ArrowUp');
-                    } else {
-                        this.game.keys.push('ArrowDown');
-                    }
-                }
+                this.game.player.shootTop();
             }
         });
         window.addEventListener('touchend', (event) => {
@@ -113,6 +101,7 @@ class Seeds{
         this.image = document.getElementById('seed');
     }
     update(){
+        
         this.x += this.speed;
         if(this.x > this.game.width * 0.8) this.markedForDeletion = true;
     }   
@@ -205,7 +194,13 @@ class Opponent{
     constructor(game){
         this.game = game;   
         this.x = this.game.width;
-        this.speedX = Math.random() * -0.5 - 0.9;
+        //change the speed of the layer
+        if (/Mobi|Android/i.test(navigator.userAgent)) {
+            this.speedX = -0.1;
+        } else {
+            this.speedX = Math.random() * -0.5 - 0.9;
+        }
+        // this.speedX = Math.random() * -0.5 - 0.9;
         this.markedForDeletion = false;
         this.lives = 5;
         this.scroe = this.lives;
@@ -233,7 +228,12 @@ class LuckyEarthWarm extends Opponent{
         this.width = 50;
         this.height = 50;
         this.y = Math.random() * this.game.height * 0.7 - this.height;
-        this.speedX = Math.random() * -0.5 - 2;
+        //change the speed of the layer
+        if (/Mobi|Android/i.test(navigator.userAgent)) {
+            this.speedX = -0.1;
+        } else {
+            this.speedX = Math.random() * -0.5 - 2;
+        }
         this.image = document.getElementById('opponent3');
         this.lives = 2;
         this.scroe = 1;
@@ -267,7 +267,13 @@ class Layer{
 
     update(){
         if(this.x < -this.width + this.game.width) this.x = 0;
-        this.x -= this.game.speed * this.speedModifier;
+        //change the speed of the layer
+        if (/Mobi|Android/i.test(navigator.userAgent)) {
+            this.x -= 0;
+        } else {
+            this.x -= this.game.speed * this.speedModifier;
+        }
+        
     }
     draw(context){
         context.drawImage(this.image, this.x, this.y, this.width, this.height); 

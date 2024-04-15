@@ -43,6 +43,7 @@ restartButton.addEventListener('click', function() {
 
 cxt.drawImage(earthwarm, 730, 330, 70, 60);
 
+
 window.addEventListener('keydown', (event) => {
     if(event.key === 'Enter') {
         playButton.style.display = 'none';
@@ -51,13 +52,36 @@ window.addEventListener('keydown', (event) => {
     }
 });
 
-/* Encapsulation : It is the budiling of data the methods that act on the data in objects. 
-Access to that data can be restricted from outside the bundle. */
+window.addEventListener('touchstart', () => {
+    playButton.style.display = 'none';
+    canvas.style.display = 'block';
+    animate(0);
+});
 
 class InputHandler{
 
     constructor(game){
         this.game = game;
+        window.addEventListener('touchstart', (event) => {
+            if (event.targetTouches.length === 1) {
+                const touch = event.targetTouches[0];
+                const canvasRect = canvas.getBoundingClientRect();
+                const touchX = touch.clientX - canvasRect.left;
+                const touchY = touch.clientY - canvasRect.top;
+                if (touchX >= this.game.width / 2) {
+                    this.game.player.shootTop();
+                } else {
+                    if (touchY < this.game.player.y) {
+                        this.game.keys.push('ArrowUp');
+                    } else {
+                        this.game.keys.push('ArrowDown');
+                    }
+                }
+            }
+        });
+        window.addEventListener('touchend', (event) => {
+            this.game.keys = this.game.keys.filter(key => key !== 'ArrowUp' && key !== 'ArrowDown');
+        });
         window.addEventListener('keydown', (event) => { 
             //Special feature of arrow function is that this keyword inside arrow function always represents the object in which the arrow function is defined.
                 if(((event.key === 'ArrowUp')|| (event.key === "ArrowDown")) 

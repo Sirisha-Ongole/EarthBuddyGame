@@ -19,4 +19,11 @@
 #layer1, #layer2, #player1, #opponent1, #opponent2, #opponent3, #opponent4, #seed,#playButton, #restartButton{
     display: none;
 }
-
+#mobileMsg{
+    display: none;
+}
+@media only screen and (max-width: 600px) {
+    #mobileMsg {
+        display: block;
+    }
+}
